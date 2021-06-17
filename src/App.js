@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { initialState } from './reducers/index';
-import { addOne, applyNumber } from './actions/index';
+import { addOne, applyNumber, changeOperation, clearDisplay, memoryPlus, memoryRecall, memoryClear } from './actions/index';
 
 import './App.css';
 
@@ -20,6 +20,26 @@ function App() {
     dispatch(applyNumber(number));
   }
 
+  const handleChangeOperation = operation => {
+    dispatch(changeOperation(operation));
+  }
+
+  const handleClearButton = () => {
+    dispatch(clearDisplay());
+  }
+
+  const handleMemoryPlus = () => {
+    dispatch(memoryPlus());
+  }
+
+  const handleMemoryRecall = () => {
+    dispatch(memoryRecall());
+  }
+
+  const handleMemoryClear = () => {
+    dispatch(memoryClear());
+  }
+
   return (
     <div className="App">
       <nav className="navbar navbar-dark bg-dark">
@@ -37,9 +57,9 @@ function App() {
             </div>
             
             <div className="row">
-              <CalcButton value={"M+"}/>
-              <CalcButton value={"MR"}/>
-              <CalcButton value={"MC"}/>
+              <CalcButton value={"M+"} onClick={handleMemoryPlus}/>
+              <CalcButton value={"MR"} onClick={handleMemoryRecall}/>
+              <CalcButton value={"MC"} onClick={handleMemoryClear}/>
             </div>
 
             <div className="row">
@@ -61,13 +81,13 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"+"}/>
-              <CalcButton value={"*"}/>
-              <CalcButton value={"-"}/>
+              <CalcButton value={"+"} onClick={() => handleChangeOperation('+')}/>
+              <CalcButton value={"*"} onClick={() => handleChangeOperation('*')}/>
+              <CalcButton value={"-"} onClick={() => handleChangeOperation('-')}/>
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"}/>
+              <CalcButton value={"CE"} onClick={handleClearButton}/>
             </div>
 
           </form>
